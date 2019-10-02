@@ -188,7 +188,7 @@ REST_FRAMEWORK = {
 }
 
 
-LOGIN_REDIRECT_URL = r'^home'
-LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'home/'
+LOGIN_URL = '/login'
 LOGIN_EXEMPT_URLS = (r'^admin/', r'^api/*', r'^media/')
 
