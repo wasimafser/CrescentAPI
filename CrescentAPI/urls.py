@@ -15,7 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include, url
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib.auth import views as auth_views
+from . import views
 
 urlpatterns = [
+    url(r'^login/$', auth_views.LoginView.as_view()),
     path('admin/', admin.site.urls),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Admin Site Config
+admin.sites.AdminSite.site_header = 'Crescent API'
+admin.sites.AdminSite.site_title = 'Crescent API'
+admin.sites.AdminSite.index_title = 'Crescent API'

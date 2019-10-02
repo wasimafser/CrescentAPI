@@ -1,0 +1,12 @@
+.idea/
+*.pyc
+images/
+media/
+logs/
+migrations/
+*.db
+venv/
+db.sqlite3
+*.json
+*.sql
+static/third_party/ui-grid*
