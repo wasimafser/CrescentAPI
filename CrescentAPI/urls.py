@@ -24,6 +24,7 @@ from . import views
 urlpatterns = [
     url(r'^login$', auth_views.LoginView.as_view()),
     url(r'^home/$', views.home_view, name='home'),
+    url(r'^', include('timetable.urls')),
     path('admin/', admin.site.urls),
 ]
 
