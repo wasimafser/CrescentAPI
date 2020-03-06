@@ -51,7 +51,6 @@ class QuizView(View):
     def post(self, request, *args, **kwargs):
         questionform = QuestionForm(request.POST)
         answerformset = AnswerFormSet(request.POST)
-        print(questionform.is_valid(), answerformset.is_valid())
         if questionform.is_valid() and answerformset.is_valid():
             question = questionform.save()
             for form in answerformset:
