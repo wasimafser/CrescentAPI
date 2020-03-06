@@ -5,6 +5,14 @@ from django.dispatch import receiver
 
 # Create your models here.
 
+class Subject(models.Model):
+    code = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
+    credit = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.code} {self.name}"
+
 
 class Designation(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -15,6 +23,7 @@ class Designation(models.Model):
 
 class Department(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    code = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return f"{self.name}"

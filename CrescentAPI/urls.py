@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^login$', auth_views.LoginView.as_view()),
     url(r'^home/$', views.home_view, name='home'),
     url(r'^', include('timetable.urls')),
+    url(r'^', include('profiles.urls')),
+    url(r'^exam/', include('exam.urls')),
     path('admin/', admin.site.urls),
 ]
 

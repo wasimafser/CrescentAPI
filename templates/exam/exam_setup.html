@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block bread_crumb %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="card card-body">
+        <input list="exams" id="exam" placeholder="Exam ...">
+        <datalist id="exams">
+            {% for exam in active_exams %}
+            <option value="{{exam.id}}">{{exam.name}}</option>
+            {% endfor %}
+        </datalist>
+    </div>
+
+    <div class="card card-body" id="quiz_list">
+
+    </div>
+
+{% endblock %}
+
+
+{% block page_scripts %}
+
+    <script>
+        $('#exam').on('input', function(){
+            var id = this.value;
+            $('#quiz_list').load("{% url 'quiz_list' %}/?exam_id="+id);
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block bread_crumb %}
+    <link type="text/css" rel="stylesheet" href="{% static 'template/assets/plugins/jsgrid/jsgrid.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'template/assets/plugins/jsgrid/jsgrid-theme.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+      <div class="card-body">
+        <div id="subjects_list">
+
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+
+    <script src="{% static 'template/assets/plugins/jsgrid/jsgrid.min.js' %}"></script>
+
+    <script>
+    $(document).ready(function(){
+        $("#subjects_list").jsGrid({
+          width: "100%",
+          height: "auto",
+
+          inserting: true,
+          editing: true,
+          sorting: true,
+          paging: true,
+          filtering: true,
+
+          autoload: true,
+
+          controller: {
+            loadData: function( filter ){
+              return $.ajax({ type: "GET", url: "/api/subject/", data: filter });
+            },
+            insertItem: function(item){
+              return $.ajax({ type: "POST", url: "/api/subject/", data: item });
+            },
+            updateItem: function(item){
+              return $.ajax({ type: "PUT", url: "/api/subject/?id="+item.id, data: item });
+            },
+            deleteItem: function(item){
+              return $.ajax({ type: "DELETE", url: "/api/subject/?id="+item.id });
+            }
+          },
+
+          fields: [
+            { title: "SUBJECT CODE", name: "code", type: "text", validate: "required" },
+            { title: "SUBJECT NAME", name: "name", type: "text"},
+            { title: "CREDIT", name: "credit", type: "text" },
+            {% if perms.hrm.delete_subject %}
+            { type: "control" }
+            {% else %}
+            { type: "control", deleteButton: false }
+            {% endif %}
+          ]
+        });
+    });
+  </script>
+
+{% endblock page_scripts %}

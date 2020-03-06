@@ -1,0 +1,97 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block bread_crumb %}
+    <link type="text/css" rel="stylesheet" href="{% static 'template/assets/plugins/jsgrid/jsgrid.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'template/assets/plugins/jsgrid/jsgrid-theme.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+      <div class="card-body">
+        <div id="exam_list">
+
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+
+{% block page_scripts %}
+
+    <script src="{% static 'template/assets/plugins/jsgrid/jsgrid.min.js' %}"></script>
+
+    <script>
+    $(document).ready(function(){
+        // DECIMAL VALUES
+        function DecimalField(config) {
+          jsGrid.fields.number.call(this, config);
+        }
+
+        DecimalField.prototype = new jsGrid.fields.number({
+
+          filterValue: function() {
+              return this.filterControl.val()
+                  ? parseFloat(this.filterControl.val() || 0, 10)
+                  : undefined;
+          },
+
+          insertValue: function() {
+              return this.insertControl.val()
+                  ? parseFloat(this.insertControl.val() || 0, 10)
+                  : undefined;
+          },
+
+          editValue: function() {
+              return this.editControl.val()
+                  ? parseFloat(this.editControl.val() || 0, 10)
+                  : undefined;
+          }
+        });
+
+        // SETUP JS GRID
+        jsGrid.fields.decimal = jsGrid.DecimalField = DecimalField;
+        $("#exam_list").jsGrid({
+          width: "100%",
+          height: "auto",
+
+          inserting: true,
+          editing: true,
+          sorting: true,
+          paging: true,
+          filtering: true,
+
+          autoload: true,
+
+          controller: {
+            loadData: function( filter ){
+              return $.ajax({ type: "GET", url: "{% url 'exam_api' %}", data: filter });
+            },
+            insertItem: function(item){
+              return $.ajax({ type: "POST", url: "{% url 'exam_api' %}", data: item });
+            },
+            updateItem: function(item){
+              return $.ajax({ type: "PUT", url: "{% url 'exam_api' %}?id="+item.id, data: item });
+            },
+            deleteItem: function(item){
+              return $.ajax({ type: "DELETE", url: "{% url 'exam_api' %}?id="+item.id });
+            }
+          },
+
+          fields: [
+            { title: "Exam ID", name: "id", type: "text", validate: "required" },
+            { title: "Exam Name", name: "name", type: "text", validate: "required" },
+            { title: "Total Points", name: "total_points", type: "text" },
+            { title: "Duration", name: "duration", type: "decimal" },
+            { title: "ACTIVE", name: "is_active", type: "checkbox" },
+            {% if perms.exam.delete_exam %}
+            { type: "control" }
+            {% else %}
+            { type: "control", deleteButton: false }
+            {% endif %}
+          ]
+        });
+    });
+  </script>
+
+{% endblock %}

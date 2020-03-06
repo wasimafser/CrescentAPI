@@ -11,9 +11,9 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="/static/template/main/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
+<!--        <div class="image">-->
+<!--          <img src="/static/template/main/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">-->
+<!--        </div>-->
         <div class="info">
           <a href="#" class="d-block">{{ user.first_name }} {{ user.last_name }}</a>
         </div>
@@ -24,21 +24,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-header">Control</li>
-          <li class="nav-item">
-              <a href="/timetable/first/" class="nav-link active">
-                <i class="fas fa-th nav-icon"></i>
-                <p>Time Table - Creator</p>
-              </a>
-          </li>
-          {% if perms.profile.view_subject %}
-            <a class="nav-item nav-link" href="{% url 'subject_view' %}">SUBJECTS</a>
-          {% endif %}
-          {% if perms.exam.view_exam %}
-            <li class="nav-header">EXAM</li>
-            <a class="nav-item nav-link" href="{% url 'exam_list' %}">Exams List</a>
-            <a class="nav-item nav-link" href="{% url 'exam_setup' %}">Exams Setup</a>
-          {% endif %}
+            <li class="nav-header">Questions</li>
+            <a class="nav-item nav-link" href="#">Q-1</a>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.contrib import auth
 import getpass
 from django.contrib.auth.models import User
+
+from django.views import View
+
+
 # Create your views here.
 def login_view(request):
     """
@@ -37,3 +41,10 @@ def login_view(request):
                 return render(request, 'profile/login_custom.html')
         else:
             return render(request, 'profile/login_custom.html')
+
+
+class SubjectView(View):
+    template_name = 'administrative/subjects.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
