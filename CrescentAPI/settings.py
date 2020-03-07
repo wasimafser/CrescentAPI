@@ -120,8 +120,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-if sys.platform == 'linux':
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# if sys.platform == 'linux':
+#     STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Fixtures Directory
 
