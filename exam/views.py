@@ -61,3 +61,9 @@ class QuizView(View):
         return render(request, self.template_name,
                       {'questionform': questionform, 'answerformset': answerformset, 'active_exams': self.active_exams})
 
+
+class ExamView(View):
+    template_name = 'exam/quiz.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)

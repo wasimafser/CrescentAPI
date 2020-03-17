@@ -33,3 +33,11 @@ class ExamAPI(APIView):
         exam = Exam.objects.filter(id=exam_id)
         exam.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class QuestionsAPI(APIView):
+
+    def get(self, request, format=None):
+        serializer = QuestionSerializer(Question.objects.all(), many=True)
+        return Response(serializer.data)
+

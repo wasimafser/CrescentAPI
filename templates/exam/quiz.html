@@ -1,6 +1,25 @@
 {% extends 'main/exam/_base.html' %}
 {% load static %}
 
-{% block bread_crumb %} {% endblock bread_crumb %}
+{% block bread_crumb %}
+{% endblock bread_crumb %}
 
-{% block content %} {% endblock content %}
+{% block content %}
+<div id="questions_list"></div>
+{% endblock content %}
+
+{% block page_scripts %}
+
+    <script>
+        $.get('{% url 'question_api' %}', function(data){
+            //console.log(data);
+            $('#questions_list').html('');
+            data.forEach(function(question){
+                var qt = question.text;
+                var para = `<p>${qt}</p>`;
+                $('#questions_list').append(para);
+            });
+        });
+    </script>
+
+{% endblock page_scripts %}
