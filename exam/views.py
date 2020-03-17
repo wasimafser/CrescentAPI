@@ -66,4 +66,8 @@ class ExamView(View):
     template_name = 'exam/quiz.html'
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+        exams = Exam.objects.all()
+        context = {
+            'exams': exams
+        }
+        return render(request, self.template_name, context)

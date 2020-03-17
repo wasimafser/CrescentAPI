@@ -2,6 +2,14 @@
 {% load static %}
 
 {% block bread_crumb %}
+<input id="exam" list="exams_list">
+
+<datalist id="exams_list">
+  {% for exam in exams %}
+  <option value="{{exam.id}}">{{exam.name}}</option>
+  {% endfor %}
+</datalist>
+
 {% endblock bread_crumb %}
 
 {% block content %}
